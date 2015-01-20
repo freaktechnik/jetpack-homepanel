@@ -9,7 +9,7 @@ This project is licensed unter the MPL 2.0. For the full license text, check out
 Represents a list or grid of items in a panel on the homescreen. Fennec
 currently only supports one per panel.
 #### Items
-Items for the section follow https://developer.mozilla.org/en-US/Add-ons/Firefox_for_Android/API/HomeProvider.jsm/HomeStorage#Item_attributes.
+Items for the section follow https://developer.mozilla.org/en-US/Add-ons/Firefox_for_Android/API/HomeProvider.jsm/HomeStorage#Item_attributes. The maximal number of supported items is 100.
 #### Constructor
 ##### Required Options
 ###### type
