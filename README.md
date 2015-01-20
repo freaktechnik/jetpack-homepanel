@@ -59,14 +59,16 @@ The title displayed for the panel on the fennec homepage.
 ###### sections
 An array of at least one Sections. Firefox currently only supports one Section per HomePanel.
 ##### Optional arguments
-###### onShow
-Event listener for the show event.
-###### onHide
-Event listener for the hide event.
+###### onInstall
+Event listener for the install event.
+###### onUninstall
+Event listener for the uninstall event.
 #### Properties
 ##### isShowing
 Boolean indicating, whether or not the panel is currently accessible on Fennec's
 homescreen.
+##### title
+The title of the panel.
 #### Methods
 ##### show()
 Adds the panel to fennec's homescreen.
@@ -76,9 +78,9 @@ Removes the panel from fennec's homescreen.
 Clears the panel's attributes and sections.
 ##### Event listening methods (on, once, etc.)
 #### Events
-##### show
+##### install
 Fired whenever the panel is added to fennec's homescreen.
-##### hide
+##### uninstall
 Fired whenever the panel is removed from fennec's homescreen.
 
 ### Example
