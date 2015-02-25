@@ -1,7 +1,7 @@
 {
   "title": "Homepanel",
   "name": "jetpack-homepanel",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Module to add home panels to Firefox for Android with Jetpack",
   "main": "lib/homepanel.js",
   "author": "Martin Giger",
