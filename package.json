@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Module to add home panels to Firefox for Android with Jetpack",
   "keywords": ["add-on sdk", "jetpack", "fennec", "firefox", "android", "home"],
-  "main": "./lib/homepanel.js",
+  "main": "lib/homepanel",
   "author": "freaktechnik (http://humanoids.be)",
   "engines": {
     "fennec": ">=33.0a1"
