@@ -1,11 +1,12 @@
 # jetpack-homepanel
 Module to add home panels to Firefox for Android with Jetpack.
+In the npm registry: https://www.npmjs.com/package/jetpack-homepanel
 
 ## License
 This project is licensed unter the MPL 2.0. For the full license text, check out [mozilla.org/MPL/2.0/](http://mozilla.org/MPL/2.0/).
 
 ## Usage
-Currently this module cannot be required via npm and has to be manually added to your source. You only need the files inside the lib folder and please take a look at the package.json, as it contains valuable information like compatibility and licensing, everything else is just decoration for your pleasure.
+Using this module is as simple as listing it in the dependencies of your package.json. It's name is "jetpack-homepanel". Run `npm install` and npm will do the rest for you.
 ### Section
 Represents a list or grid of items in a panel on the homescreen. Fennec
 currently only supports one per panel.
