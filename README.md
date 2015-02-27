@@ -6,7 +6,7 @@ In the npm registry: https://www.npmjs.com/package/jetpack-homepanel
 This project is licensed unter the MPL 2.0. For the full license text, check out [mozilla.org/MPL/2.0/](http://mozilla.org/MPL/2.0/).
 
 ## Usage
-Using this module is as simple as listing it in the dependencies of your package.json. It's name is "jetpack-homepanel". Run `npm install` and npm will do the rest for you.
+Using this module is as simple as running `npm install jetpack-homepanel --save` and npm will do the rest for you.
 ### Section
 Represents a list or grid of items in a panel on the homescreen. Fennec
 currently only supports one per panel.
@@ -90,7 +90,7 @@ Fired whenever the panel is removed from fennec's homescreen.
 ### Example
 #### Grid Panel
 ```js
-const { HomePanel, Section, Types } = require("homepanel");
+const { HomePanel, Section, Types } = require("jetpack-homepanel");
 
 let section = Section({
             type: Types.GRID,
@@ -128,7 +128,7 @@ The code above results in such a panel:
 ![Grid Panel](docs/grid-panel.png)
 #### List Panel
 ```js
-const { HomePanel, Section, Types } = require("homepanel");
+const { HomePanel, Section, Types } = require("jetpack-homepanel");
 
 HomePanel({
     title: "Example List Panel",
@@ -170,6 +170,8 @@ The code above results in a panel shown in this screenshot:
 #### List with a Folder
 The item configuration for this example was taken from the [MDN HomeProvider.jsm Example](https://developer.mozilla.org/en-US/Add-ons/Firefox_for_Android/API/HomeProvider.jsm#Example).
 ```js
+const { HomePanel, Section, Types } = require("jetpack-homepanel");
+
 HomePanel({
     title: "Example Panel with a Folder",
     sections: [
