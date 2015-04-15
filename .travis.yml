@@ -36,5 +36,5 @@ before_script:
   - export JPM_ADB_PATH=/usr/local/android-sdk/platform-tools/adb
 
 script:
-  - jpm-mobile test --adb JPM_ADB_PATH -b JPM_FIREFOX_BINARY -v
+  - jpm-mobile test -v
 
