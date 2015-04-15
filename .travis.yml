@@ -40,5 +40,5 @@ before_script:
   - export JPM_ADB_PATH=/usr/local/android-sdk/platform-tools/adb
 
 script:
-  - jpm-mobile test -v --adb /usr/local/android-sdk/platform-tools/adb -b fennec
+  - jpm-mobile test -v --adb $JPM_ADB_PATH -b $JPM_FIREFOX_BINARY
 
