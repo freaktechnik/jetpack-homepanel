@@ -11,6 +11,7 @@ before_script:
 - cd /tmp
 - mkdir sdcard
 - mksdcard -l jetpackSdCard 1024M sdcard/jpmsdcard.img
+- rm sdcard/jpmsdcard.img.lock
 - echo no | android create avd --force -n jpm -t android-19 --abi armeabi-v7a
 - "emulator -avd jpm -sdcard sdcard/jpmsdcard.img -no-audio -gpu on -no-boot-anim -noskin &"
 - android-wait-for-emulator
