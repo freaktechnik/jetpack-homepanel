@@ -24,6 +24,7 @@ before_script:
   - android-wait-for-emulator
   # Unlock the emulator
   - adb shell input keyevent 82 &
+  - adb shell input keyevent 82 &
   # Download Nightly
   - wget -O fennec.apk https://ftp.mozilla.org/pub/mozilla.org/mobile/nightly/latest-mozilla-central-android-api-11/fennec-40.0a1.multi.android-arm.apk
   # Install Nightly
