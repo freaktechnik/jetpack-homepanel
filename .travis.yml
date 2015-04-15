@@ -3,19 +3,17 @@ android:
   components:
   - platform-tools
   - tools
-  - android-17
-  - sys-img-armea
+  - android-19
+  - sys-img-armeabi-v7a-android-19
 before_script:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 - cd /tmp
 - mkdir sdcard
-- mksdcard -l jetpackSdCard 1024M sdcard/jetpacksdcard.img
-- echo no | android create avd --force -n jetpack -t android-17 --abi armeabi-v7a
-- emulator -avd jetpack -sdcard sdcard/jetpacksdcard.img -no-audio -gpu on -no-boot-anim
-  -noskin &
+- mksdcard -l jetpackSdCard 1024M sdcard/jpmsdcard.img
+- echo no | android create avd --force -n jpm -t android-19 --abi armeabi-v7a
+- "emulator -avd jpm -sdcard sdcard/jpmsdcard.img -no-audio -gpu on -no-boot-anim -noskin &"
 - android-wait-for-emulator
-- adb shell input keyevent 82 &
 - adb shell input keyevent 82 &
 - wget -O fennec.apk https://ftp.mozilla.org/pub/mozilla.org/mobile/nightly/latest-mozilla-central-android-api-11/fennec-40.0a1.multi.android-arm.apk
 - adb install fennec.apk
