@@ -16,24 +16,23 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   # Make go a folder up, so jpm doesn't pick up these files
   - cd ..
-  # MAke a fake sd card
-  - mkdir sdcard
-  - mksdcard -l jetpackSdCard 1024M sdcard/jetpacksdcard.img
+  # Make a fake sd card
+  - mksdcard -l jetpackSdCard 1024M jetpacksdcard.img
   # Download nightly
   - wget -O fennec.apk https://ftp.mozilla.org/pub/mozilla.org/mobile/nightly/latest-mozilla-central-android-api-11/fennec-40.0a1.multi.android-arm.apk
-  - # Go back to where we belong
-  - cd $TRAVIS_BUILD_DIR
   # Create the emulator
   - echo no | android create avd --force -n jetpack -t android-17 --abi armeabi-v7a
   # Start the emulator
-  - emulator -avd jetpack -sdcard ../sdcard/jetpacksdcard.img -no-audio -gpu on -no-boot-anim -noskin &
+  - emulator -avd jetpack -sdcard jetpacksdcard.img -no-audio -gpu on -no-boot-anim -noskin &
   # Wait for the emulator to start
   - android-wait-for-emulator
   # Unlock the emulator
   - adb shell input keyevent 82 &
   - adb shell input keyevent 82 &
   # Install Nightly
-  - adb install ../fennec.apk
+  - adb install fennec.apk
+  # Go back where we belong
+  - cd $TRAVIS_BUILD_DIR
   # Install dependencies
   - npm install jpm-mobile -g
   - export JPM_FIREFOX_BINARY=fennec
