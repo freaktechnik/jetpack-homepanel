@@ -5,6 +5,9 @@ In the npm registry: https://www.npmjs.com/package/jetpack-homepanel
 ## License
 This project is licensed unter the MPL 2.0. For the full license text, check out [mozilla.org/MPL/2.0/](http://mozilla.org/MPL/2.0/).
 
+## Running Tests
+To run the tests, you have to install the jpm-mobile module and then just execute `jpm-mobile test` with the matching arguments.
+
 ## Usage
 Using this module is as simple as running `npm install jetpack-homepanel --save` and npm will do the rest for you.
 ### Section

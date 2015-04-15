@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/freaktechnik/jetpack-homepanel/issues"
   },
-  "license": "MPL-2.0"
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "jpm-mobile": "*"
+  }
 }
