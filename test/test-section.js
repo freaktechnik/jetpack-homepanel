@@ -12,8 +12,8 @@ function assertSimilar(assert, a, b, msg) {
 }
 
 exports["test exported symbols"] = function(assert) {
-    assert.ok(LIST in Types);
-    assert.ok(GRID in Types);
+    assert.ok("LIST" in Types);
+    assert.ok("GRID" in Types);
     assert.ok(Section);
 };
 
@@ -24,9 +24,10 @@ exports["test section construction"] = function(assert) {
     assert.ok(section instanceof Section);
 
     section = new Section({
-        manuallyRefreshable = false,
+        manuallyRefreshable: false,
         type: Types.GRID
     });
+    section.destroy();
 };
 
 exports["test section id"] = function(assert) {
@@ -34,6 +35,7 @@ exports["test section id"] = function(assert) {
         type: Types.LIST
     });
     assert.equal(section.id, identify(section), "Section's id matches its identification");
+    section.destroy();
 };
 
 exports["test getting data"] = function(assert) {
@@ -48,13 +50,15 @@ exports["test getting data"] = function(assert) {
             data: data
         });
     assertSimilar(assert, section.data, data, "The data property has the same data as passed in the constructor");
+    section.destroy();
 };
 
-exports["test setting data"] = function(assert) {
+exports["test setting data"] = function(assert, done) {
     var section = new Section({
         type: Types.LIST,
         data: [
             {
+                title: "example",
                 url: "http://foo.bar"
             }
         ]
@@ -67,39 +71,57 @@ exports["test setting data"] = function(assert) {
         ];
     assert.equal(section.data[0].url, "http://foo.bar");
 
+    section.once("update", function() {
+        assertSimilar(assert, data, section.data, "Setting the data property replaces its current contents");
+        section.destroy();
+        done();
+    });
+
     section.data = data;
-    assertSimilar(assert, data, section.data, "Setting the data property replaces its current contents");
 };
 
 exports["test adding data"] = function(assert, done) {
-    var section = new Section({
+    var listener = function() {
+            section.removeListener("update", listener);
+            assert.equal(section.data.length, 1);
+
+            section.addData([
+                { title: "example 2", url: "http://foo.bar" }
+            ]).then(() => {
+                assert.equal(section.data.length, 2, "Data appended to the existing successfully");
+                section.destroy();
+                done();
+            }, (e) => {
+                assert.error(e);
+                assert.fail({message:"Error thrown during action", actual: e, expected: null});
+                section.destroy();
+                done();
+            });
+        },
+        section = new Section({
         type: Types.GRID,
         data: [
-            { url: "http://example.com" }
-        ]
+            { title: "example", url: "http://example.com" }
+        ],
+        onUpdate: listener
     });
-    assert.equal(section.data.length, 1);
-
-    section.addData([
-        { url: "http://foo.bar" }
-    ]).then(() => {
-        assert.equal(section.data.length, 2, "Data appended to the existing successfully");
-        done();
-    }, (e) => { assert.fail("Adding data failed: "+e); done(); });
 };
 
 exports["test clearing data"] = function(assert, done) {
     var section = new Section({
         type: Types.GRID,
-        data: [ { url: "http://example.com" } ]
+        data: [ { title: "example", url: "http://example.com" } ]
     });
     assert.equal(section.data.length, 1);
-    
+
     section.clear().then(() => {
         assert.equal(section.data.length, 0, "Data cleared of any contents");
+        section.destroy();
         done();
     }, (e) => {
-        assert.fail("failed to remove the data: "+e);
+        assert.error(e);
+        assert.fail({message:"Error thrown during action", actual: e, expected: null});
+        section.destroy();
         done();
     });
 };
@@ -112,12 +134,13 @@ exports["test view description construction"] = function(assert) {
         view = section.getViewDescription();
 
     assert.equal(view.type, Types.LIST);
-    assert.equal(view.dataset, identify(section));
+    assert.equal(view.dataset, section.id);
     assert.equal(view.backImageUrl, "http://example.com/blank.png");
     assert.ok(view.onrefresh);
-    assert.ok(!data in view);
-    assert.ok(!id in view);
-    assert.ok(!manuallyRefreshable in view);
+    assert.ok(!("data" in view));
+    assert.ok(!("id" in view));
+    assert.ok(!("manuallyRefreshable" in view));
+    section.destroy();
 };
 
 /*exports["test refresh event"] = function(assert, done) {

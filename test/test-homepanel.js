@@ -10,8 +10,8 @@ const { Section, Types, HomePanel } = require("../lib/homepanel");
 exports["test exports"] = (assert) => {
     assert.ok(Section);
     assert.ok(Types);
-    assert.ok(GRID in Types);
-    assert.ok(LIST in Types);
+    assert.ok("GRID" in Types);
+    assert.ok("LIST" in Types);
     assert.ok(HomePanel);
 };
 
@@ -23,7 +23,7 @@ exports["test HomePanel constructor"] = (assert, done) => {
                 type: Types.GRID
             })
         ],
-        onShow: () => {
+        onInstall: () => {
             assert.pass();
             panel.destroy();
             done();
@@ -35,11 +35,11 @@ exports["test HomePanel constructor"] = (assert, done) => {
 exports["test hide"] = (assert, done) => {
     var panel = HomePanel({
         title: "TestPanel",
-        views: [ Section({ type: Types.GRID }) ],
-        onShow: () => {
+        sections: [ Section({ type: Types.GRID }) ],
+        onInstall: () => {
             panel.hide();
         },
-        onHide: () => {
+        onUninstall: () => {
             assert.pass("Panel hidden according to the event");
             panel.destroy();
             done();
@@ -50,12 +50,12 @@ exports["test hide"] = (assert, done) => {
 exports["test show"] = (assert, done) => {
     var panel = HomePanel({
         title: "TestPanel",
-        views: [ Section({ type: Types.GRID }) ]
+        sections: [ Section({ type: Types.GRID }) ]
     });
 
-    panel.once("show", () => {
-        panel.once("hide", () => {
-            panel.once("show", () => {
+    panel.once("install", () => {
+        panel.once("uninstall", () => {
+            panel.once("install", () => {
                 assert.pass("Panel shown according to the event");
                 panel.destroy();
                 done();
@@ -69,35 +69,34 @@ exports["test show"] = (assert, done) => {
 exports["test isShowing"] = (assert, done) => {
     var panel = HomePanel({
         title: "TestPanel",
-        views: [ Section({ type: Types.GRID }) ],
-        onShow: () => {
+        sections: [ Section({ type: Types.GRID }) ],
+        onInstall: () => {
             assert.ok(panel.isShowing);
         },
-        onHide: () => {
+        onUninstall: () => {
             assert.ok(!panel.isShowing);
         }
     });
 
-    panel.once("show", () => {
-        panel.once("hide", () => {
-            panel.once("show", () => {
-                done();
-            });
-            panel.show();
+    panel.once("uninstall", () => {
+        panel.once("install", () => {
+            panel.destroy();
+            done();
         });
-        panel.hide();
+        panel.show();
     });
+    panel.hide();
 };
 
 exports["test dispose"] = (assert, done) => {
     var panel = HomePanel({
         title: "TestPanel",
-        views: [ Section({ type: Types.GRID }) ],
-        onHide: () => {
+        sections: [ Section({ type: Types.GRID }) ],
+        onUninstall: () => {
             assert.pass();
             done();
         }
-    }
+    });
     panel.destroy();
 };
 
