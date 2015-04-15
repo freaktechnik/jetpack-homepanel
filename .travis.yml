@@ -33,7 +33,7 @@ before_script:
   - adb shell input keyevent 82 &
   - adb shell input keyevent 82 &
   # Install Nightly
-  - adb install $TRAVIS_BUILD_DIR/../fennec.apk
+  - adb install ../fennec.apk
   # Install dependencies
   - npm install jpm-mobile -g
   - export JPM_FIREFOX_BINARY=fennec
