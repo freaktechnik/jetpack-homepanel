@@ -14,11 +14,11 @@ android:
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
-  # Make go a folder up, so jpm doesn't pick up these files
+  # Go a folder up, so jpm doesn't pick up these files
   - cd ..
   # Make a fake sd card
   - mksdcard -l jetpackSdCard 1024M jetpacksdcard.img
-  # Download nightly
+  # Download Nightly
   - wget -O fennec.apk https://ftp.mozilla.org/pub/mozilla.org/mobile/nightly/latest-mozilla-central-android-api-11/fennec-40.0a1.multi.android-arm.apk
   # Create the emulator
   - echo no | android create avd --force -n jetpack -t android-17 --abi armeabi-v7a
@@ -27,7 +27,6 @@ before_script:
   # Wait for the emulator to start
   - android-wait-for-emulator
   # Unlock the emulator
-  - adb shell input keyevent 82 &
   - adb shell input keyevent 82 &
   # Install Nightly
   - adb install fennec.apk
