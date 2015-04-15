@@ -1,4 +1,6 @@
 # jetpack-homepanel
+[![Build Status](https://travis-ci.org/freaktechnik/jetpack-homepanel.svg?branch=master)](https://travis-ci.org/freaktechnik/jetpack-homepanel)
+
 Module to add home panels to Firefox for Android with Jetpack.
 In the npm registry: https://www.npmjs.com/package/jetpack-homepanel
 
