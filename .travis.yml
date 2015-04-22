@@ -12,7 +12,7 @@ before_script:
 - mkdir sdcard
 - mksdcard -l jetpackSdCard 1024M sdcard/jpmsdcard.img
 - rm -f sdcard/jpmsdcard.img.lock
-- echo no | android create avd --force -n jpm -t android-19 --abi armeabi-v7a
+- echo no | android create avd --force -n jpm -t android-19 --abi armeabi-v7sa
 - "emulator -avd jpm -sdcard sdcard/jpmsdcard.img -no-audio -gpu on -no-boot-anim -noskin &"
 - android-wait-for-emulator
 - adb shell input keyevent 82 &
@@ -27,5 +27,7 @@ script:
 deploy:
   provider: npm
   email: martin@humanoids.be
+  on:
+    tags: true
   api_key:
     secure: DNgnzqrmCBaER+yEvGCAeRJLL9BeBjfvZC/K+gos/QUzQ6S/EaDjSGRJGBxarW0k5EbGL9LkrgBy3M3nXzHsLCDcS4ewvzKL4X6jH2qfIPvQc6fLu/lKy9yBrRfyaiG8fKVR+3Vm7YlZ940OCtiLkEf1Z+ezPY5TJdjKJEmjv2Q=
