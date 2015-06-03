@@ -5,3 +5,4 @@ docs/
 *.img
 *.apk
 *.lock
+node_modules/jpm
