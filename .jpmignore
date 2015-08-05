@@ -6,3 +6,4 @@ docs/
 *.apk
 *.lock
 node_modules/jpm
+*~

@@ -4,6 +4,7 @@
  */
 
 const { identify } = require("sdk/ui/id");
+const { when } = require("sdk/event/utils");
 
 const { Section, Types, HomePanel } = require("../lib/homepanel");
 
@@ -15,89 +16,76 @@ exports["test exports"] = (assert) => {
     assert.ok(HomePanel);
 };
 
-exports["test HomePanel constructor"] = (assert, done) => {
+exports["test HomePanel constructor"] = function*(assert) {
     var panel = HomePanel({
         title: "TestPanel",
         sections: [
             Section({
                 type: Types.GRID
             })
-        ],
-        onInstall: () => {
-            assert.pass();
-            panel.destroy();
-            done();
-        }
+        ]
     });
     assert.ok(panel);
+
+    yield when(panel, "install");
+    assert.pass("Panel was installed");
+    panel.destroy();
 };
 
-exports["test hide"] = (assert, done) => {
-    var panel = HomePanel({
-        title: "TestPanel",
-        sections: [ Section({ type: Types.GRID }) ],
-        onInstall: () => {
-            panel.hide();
-        },
-        onUninstall: () => {
-            assert.pass("Panel hidden according to the event");
-            panel.destroy();
-            done();
-        }
-    });
-};
-
-exports["test show"] = (assert, done) => {
+exports["test hide"] = function*(assert) {
     var panel = HomePanel({
         title: "TestPanel",
         sections: [ Section({ type: Types.GRID }) ]
     });
 
-    panel.once("install", () => {
-        panel.once("uninstall", () => {
-            panel.once("install", () => {
-                assert.pass("Panel shown according to the event");
-                panel.destroy();
-                done();
-            });
-            panel.show();
-        });
-        panel.hide();
-    });
+    yield when(panel, "install");
+    yield panel.hide();
+
+    assert.pass("Panel hidden according to the event");
+    panel.destroy();
 };
 
-exports["test isShowing"] = (assert, done) => {
+exports["test show"] = function*(assert) {
     var panel = HomePanel({
         title: "TestPanel",
-        sections: [ Section({ type: Types.GRID }) ],
-        onInstall: () => {
-            assert.ok(panel.isShowing);
-        },
-        onUninstall: () => {
-            assert.ok(!panel.isShowing);
-        }
+        sections: [ Section({ type: Types.GRID }) ]
     });
 
-    panel.once("uninstall", () => {
-        panel.once("install", () => {
-            panel.destroy();
-            done();
-        });
-        panel.show();
-    });
-    panel.hide();
+    yield when(panel, "install");
+    yield panel.hide();
+
+    yield panel.show();
+
+    assert.pass("Panel shown according to the event");
+    panel.destroy();
 };
 
-exports["test dispose"] = (assert, done) => {
+exports["test isShowing"] = function*(assert) {
+    let panel = HomePanel({
+        title: "TestPanel",
+        sections: [ Section({ type: Types.GRID }) ]
+    });
+
+    yield panel.hide();
+
+    assert.ok(!panel.isShowing);
+
+    yield panel.show();
+
+    assert.ok(panel.isShowing);
+
+    panel.destroy();
+};
+
+exports["test dispose"] = function*(assert) {
     var panel = HomePanel({
         title: "TestPanel",
-        sections: [ Section({ type: Types.GRID }) ],
-        onUninstall: () => {
-            assert.pass();
-            done();
-        }
+        sections: [ Section({ type: Types.GRID }) ]
     });
     panel.destroy();
+
+    yield when(panel, "uninstall");
+    assert.pass("Panel was uninstalled");
 };
 
 require("sdk/test").run(exports);

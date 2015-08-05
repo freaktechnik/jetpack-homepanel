@@ -47,6 +47,9 @@ Array of items within the section.
 ##### addData(newData)
 This is a more efficient way of adding items to the section than setting the data
 attribute with a concatenated array.
+##### setData(newData)
+Does the same as setting the data attribute but returns a promise that resolves
+whenever the data is acutally replaced.
 ##### clear()
 Removes all items from the section
 ##### destroy()
@@ -80,9 +83,11 @@ The title of the panel.
 Sections in the panel.
 #### Methods
 ##### show()
-Adds the panel to fennec's homescreen.
+Adds the panel to fennec's homescreen. Returns a promise that resolves when the
+panel is installed.
 ##### hide()
-Removes the panel from fennec's homescreen.
+Removes the panel from fennec's homescreen. Returns a promise that resolves when
+the panel is uninstalled.
 ##### destroy()
 Clears the panel's attributes and sections, which removes the panel from Firefox.
 ##### Event listening methods (on, once, etc.)
