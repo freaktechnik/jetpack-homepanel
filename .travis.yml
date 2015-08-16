@@ -5,7 +5,7 @@ android:
   - tools
   - android-19
   - sys-img-armeabi-v7a-android-19
-before_script:
+before_install:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 - cd /tmp
@@ -13,7 +13,8 @@ before_script:
 - mksdcard -l jetpackSdCard 1024M sdcard/jpmsdcard.img
 - rm -f sdcard/jpmsdcard.img.lock
 - echo no | android create avd --force -n jpm -t android-19 --abi armeabi-v7a
-- "emulator -avd jpm -sdcard sdcard/jpmsdcard.img -no-audio -gpu off -no-boot-anim -noskin &"
+- emulator -avd jpm -sdcard sdcard/jpmsdcard.img -no-audio -gpu off -no-boot-anim -noskin &
+before_script:
 - git clone --depth 1 -b fixes https://github.com/ncalexan/jpm-mobile.git
 - cd jpm-mobile
 - npm link
