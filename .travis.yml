@@ -22,6 +22,7 @@ before_script:
 - cd ..
 - npm install -g get-firefox
 - get-firefox -c -p android -t fennec.apk
+- adb wait-for-device
 - adb emu input keyevent 82 &
 - adb install fennec.apk
 - cd $TRAVIS_BUILD_DIR
