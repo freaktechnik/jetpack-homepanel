@@ -14,14 +14,14 @@ before_script:
 - rm -f sdcard/jpmsdcard.img.lock
 - echo no | android create avd --force -n jpm -t android-19 --abi armeabi-v7a
 - "emulator -avd jpm -sdcard sdcard/jpmsdcard.img -no-audio -gpu off -no-boot-anim -noskin &"
-- android-wait-for-emulator
-- adb shell input keyevent 82 &
 - git clone --depth 1 -b fixes https://github.com/ncalexan/jpm-mobile.git
 - cd jpm-mobile
 - npm link
 - cd ..
 - npm install -g get-firefox
-- get-fennec -c -p android -t fennec.apk
+- get-firefox -c -p android -t fennec.apk
+- android-wait-for-emulator
+- adb shell input keyevent 82 &
 - adb install fennec.apk
 - cd $TRAVIS_BUILD_DIR
 - export JPM_FIREFOX_BINARY=fennec
