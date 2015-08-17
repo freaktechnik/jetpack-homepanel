@@ -15,12 +15,14 @@ before_install:
 - echo no | android create avd --force -n jpm -t android-19 --abi armeabi-v7a
 - emulator -avd jpm -sdcard sdcard/jpmsdcard.img -no-audio -gpu off -no-boot-anim -noskin &
 - android-wait-for-emulator
+- cd $TRAVIS_BUILD_DIR
 before_script:
+- npm install -g get-firefox
+- cd /tmp
 - git clone --depth 1 -b fixes https://github.com/ncalexan/jpm-mobile.git
 - cd jpm-mobile
 - npm link
 - cd ..
-- npm install -g get-firefox
 - get-firefox -c -p android -t fennec.apk
 - adb wait-for-device
 - adb emu input keyevent 82 &
