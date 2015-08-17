@@ -8,26 +8,23 @@ android:
 before_install:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
-- cd /tmp
-- mkdir sdcard
-- mksdcard -l jetpackSdCard 1024M sdcard/jpmsdcard.img
-- rm -f sdcard/jpmsdcard.img.lock
+- export TMP_DIR=/tmp
+- mkdir -p $TMP_DIR/sdcard
+- mksdcard -l jetpackSdCard 1024M $TMP_DIR/sdcard/jpmsdcard.img
+- rm -f $TMP_DIR/sdcard/jpmsdcard.img.lock
 - echo no | android create avd --force -n jpm -t android-19 --abi armeabi-v7a
-- emulator -avd jpm -sdcard sdcard/jpmsdcard.img -no-audio -gpu off -no-boot-anim -noskin &
+- emulator -avd jpm -sdcard $TMP_DIR/sdcard/jpmsdcard.img -no-audio -gpu off -no-boot-anim -noskin &
 - android-wait-for-emulator
-- cd $TRAVIS_BUILD_DIR
 before_script:
 - npm install -g get-firefox
-- cd /tmp
-- git clone --depth 1 -b fixes https://github.com/ncalexan/jpm-mobile.git
-- cd jpm-mobile
+- git clone --depth 1 -b fixes https://github.com/ncalexan/jpm-mobile.git $TMP_DIR/jpm-mobile
+- cd $TMP_DIR/jpm-mobile
 - npm link
-- cd ..
-- get-firefox -c -p android -t fennec.apk
+- cd $TRAVIS_BUILD_DIR
+- get-firefox -c -p android -t $TMP_DIR/fennec.apk
 - adb wait-for-device
 - adb emu input keyevent 82 &
-- adb install fennec.apk
-- cd $TRAVIS_BUILD_DIR
+- adb install $TMP_DIR/fennec.apk
 - export JPM_FIREFOX_BINARY=fennec
 - export JPM_ADB_PATH=/usr/local/android-sdk/platform-tools/adb
 script:
