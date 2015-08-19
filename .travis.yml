@@ -6,6 +6,7 @@ android:
   - android-19
   - sys-img-armeabi-v7a-android-19
 env:
+  global:
   - DISPLAY=:99.0
   - JPM_ADB_PATH=/usr/local/android-sdk/platform-tools/adb
   - JPM_FIREFOX_BINARY=fennec
