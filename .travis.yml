@@ -5,10 +5,13 @@ android:
   - tools
   - android-19
   - sys-img-armeabi-v7a-android-19
+env:
+  - DISPLAY=:99.0
+  - JPM_ADB_PATH=/usr/local/android-sdk/platform-tools/adb
+  - JPM_FIREFOX_BINARY=fennec
+  - TMP_DIR=/tmp
 before_install:
-- export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
-- export TMP_DIR=/tmp
 - mkdir -p $TMP_DIR/sdcard
 - mksdcard -l jetpackSdCard 1024M $TMP_DIR/sdcard/jpmsdcard.img
 - rm -f $TMP_DIR/sdcard/jpmsdcard.img.lock
@@ -25,8 +28,6 @@ before_script:
 - adb wait-for-device
 - adb emu input keyevent 82 &
 - adb install $TMP_DIR/fennec.apk
-- export JPM_FIREFOX_BINARY=fennec
-- export JPM_ADB_PATH=/usr/local/android-sdk/platform-tools/adb
 script:
 - jpm-mobile test -v --adb $JPM_ADB_PATH -b $JPM_FIREFOX_BINARY
 deploy:
