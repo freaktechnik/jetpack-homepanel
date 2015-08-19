@@ -17,7 +17,7 @@ before_install:
 - emulator -avd jpm -noaudio -no-skin &
 before_script:
 - npm install -g get-firefox
-- git clone --depth 1 -b fixes https://github.com/ncalexan/jpm-mobile.git $TMP_DIR/jpm-mobile
+- git clone --depth 1 -b ncalexan-fixes https://github.com/freaktechnik/jpm-mobile.git $TMP_DIR/jpm-mobile
 - cd $TMP_DIR/jpm-mobile
 - npm link
 - cd $TRAVIS_BUILD_DIR
@@ -25,7 +25,6 @@ before_script:
 - android-wait-for-emulator
 - adb shell input keyevent 82 && adb shell input keyevent 4
 - adb install $TMP_DIR/fennec.apk
-- echo $JPM_FIREFOX_BINARY
 script:
 - jpm-mobile test -v --adb $JPM_ADB_PATH -b JPM_FIREFOX_BINARY
 deploy:
