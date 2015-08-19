@@ -34,3 +34,6 @@ deploy:
     tags: true
   api_key:
     secure: DNgnzqrmCBaER+yEvGCAeRJLL9BeBjfvZC/K+gos/QUzQ6S/EaDjSGRJGBxarW0k5EbGL9LkrgBy3M3nXzHsLCDcS4ewvzKL4X6jH2qfIPvQc6fLu/lKy9yBrRfyaiG8fKVR+3Vm7YlZ940OCtiLkEf1Z+ezPY5TJdjKJEmjv2Q=
+notifications:
+  email:
+    on_failure: never
