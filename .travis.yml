@@ -26,7 +26,6 @@ before_script:
 - npm link
 - cd $TRAVIS_BUILD_DIR
 - get-firefox -c -p android -t $TMP_DIR/fennec.apk
-- adb wait-for-device
 - adb shell input keyevent 82 &
 - adb install $TMP_DIR/fennec.apk
 script:
