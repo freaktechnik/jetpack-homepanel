@@ -13,11 +13,8 @@ env:
   - TMP_DIR=/tmp
 before_install:
 - sh -e /etc/init.d/xvfb start
-- mkdir -p $TMP_DIR/sdcard
-- mksdcard -l jetpackSdCard 1024M $TMP_DIR/sdcard/jpmsdcard.img
-- rm -f $TMP_DIR/sdcard/jpmsdcard.img.lock
-- echo no | android create avd --force -n jpm -t android-19 --abi armeabi-v7a
-- emulator -avd jpm -sdcard $TMP_DIR/sdcard/jpmsdcard.img -noaudio -gpu off -no-boot-anim -noskin &
+- echo no | android create avd --force -n jpm -t android-19 --abi armeabi-v7a --sdcard 1024M
+- emulator -avd jpm -noaudio -gpu off -no-boot-anim -noskin &
 before_script:
 - npm install -g get-firefox
 - git clone --depth 1 -b fixes https://github.com/ncalexan/jpm-mobile.git $TMP_DIR/jpm-mobile
