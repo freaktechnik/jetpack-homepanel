@@ -14,7 +14,7 @@ env:
 before_install:
 - sh -e /etc/init.d/xvfb start
 - echo no | android create avd --force -n jpm -t android-19 --abi armeabi-v7a --sdcard 1024M
-- emulator -avd jpm -noaudio -no-boot-anim -no-skin &
+- emulator -avd jpm -noaudio -no-skin &
 before_script:
 - npm install -g get-firefox
 - git clone --depth 1 -b fixes https://github.com/ncalexan/jpm-mobile.git $TMP_DIR/jpm-mobile
