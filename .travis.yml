@@ -23,8 +23,9 @@ before_script:
 - cd $TRAVIS_BUILD_DIR
 - get-firefox -c -p android -t $TMP_DIR/fennec.apk
 - android-wait-for-emulator
-#- adb shell input keyevent 82 && adb shell input keyevent 4
 - adb install $TMP_DIR/fennec.apk
+- adb shell input keyevent 82 && adb shell input keyevent 4
+
 script:
 - jpm-mobile test -v --adb $JPM_ADB_PATH -b $JPM_FIREFOX_BINARY
 deploy:
