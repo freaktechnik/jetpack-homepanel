@@ -18,7 +18,6 @@ before_install:
 - rm -f $TMP_DIR/sdcard/jpmsdcard.img.lock
 - echo no | android create avd --force -n jpm -t android-19 --abi armeabi-v7a
 - emulator -avd jpm -sdcard $TMP_DIR/sdcard/jpmsdcard.img -no-audio -gpu off -no-boot-anim -noskin &
-- android-wait-for-emulator
 before_script:
 - npm install -g get-firefox
 - git clone --depth 1 -b fixes https://github.com/ncalexan/jpm-mobile.git $TMP_DIR/jpm-mobile
@@ -26,6 +25,7 @@ before_script:
 - npm link
 - cd $TRAVIS_BUILD_DIR
 - get-firefox -c -p android -t $TMP_DIR/fennec.apk
+- android-wait-for-emulator
 - adb shell input keyevent 82
 - adb install $TMP_DIR/fennec.apk
 script:
