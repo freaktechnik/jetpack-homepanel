@@ -6,7 +6,7 @@
 const { identify } = require("sdk/ui/id");
 const { when } = require("sdk/event/utils");
 
-const { Section, Types } = require("../lib/homepanel/section");
+const { Section, Types, ItemTypes } = require("../lib/homepanel/section");
 
 function assertSimilar(assert, a, b, msg) {
     assert.equal(JSON.stringify(a), JSON.stringify(b), msg);
@@ -16,6 +16,7 @@ exports["test exported symbols"] = function(assert) {
     assert.ok("LIST" in Types);
     assert.ok("GRID" in Types);
     assert.ok(Section);
+    assert.ok("ICON" in ItemTypes);
 };
 
 exports["test section construction"] = function(assert) {
@@ -160,6 +161,8 @@ exports["test view description construction"] = function(assert) {
 };
 
 /*exports["test refresh event"] = function(assert, done) {
+};
+exports["test requestSync"] = function(assert, done) {
 };*/
 
 

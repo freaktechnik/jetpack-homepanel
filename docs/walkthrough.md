@@ -2,7 +2,7 @@
 This is the equivalent to the [MDN Firefox Hub Walkthrough Guide](https://developer.mozilla.org/en-US/Add-ons/Firefox_for_Android/Firefox_Hub_Walkthrough) for the `jetpack-homepanel` module.
 
 ## Storing data
-Before you can create your panel, you need to define its initial contents. This is done by creating a [Section](/README.md#Section) object. In theory a panel could have multiple sections, but Firefox for Android currently only supports one section per panel.
+Before you can create your panel, you need to define its initial contents. This is done by creating a [Section](/README.md#section) object. In theory a panel could have multiple sections, but Firefox for Android currently only supports one section per panel.
 
 The Section manages and stores the data displayed in your panel. The data is stored asynchronously, which causes all explicit methods for storing data to return a Promise. By default the section can be refreshed by pulling down. The refresh animation stops, as soon as you update or add data to the section.
 
@@ -23,11 +23,28 @@ var section = new Section({
 });
 ```
 
-See the documentation of the [Section Object](/README.md#Section) for a full reference of all constructor options.
+See the documentation of the [Section Object](/README.md#section) for a full reference of all constructor options.
+
+In practice, if you are going to use a network request to fetch your data, you should use the `requestSync` method to allow Firefox to decide, if it's a good time to sync.
+```js
+section.requestSync().then(() => {
+    // Fetch new data and store it in the section.
+});
+```
+
+You can also set the `refreshInterval` property to sync data in a refular interval.
+```js
+section.refreshInterval = 3600;
+
+// This gets called once every hour now, unless the user manually refreshes the view
+section.on("refresh", () => {
+    // Fetch new data and store it in the section
+});
+```
 
 ## Creating a home panel
 After you have created your section, you have to display it in a panel of the Firefox for Android homescreen.
-To create a panel, create a new [HomePanel](/README.md#HomePanel) object. It mainly consists of a title that is used to identify the panel and the section the panel contains.
+To create a panel, create a new [HomePanel](/README.md#homepanel) object. It mainly consists of a title that is used to identify the panel and the section the panel contains.
 
 This example assumes, that you have created a section and saved it in the `section` variable.
 ```js
@@ -150,5 +167,4 @@ var section = new Section({
 You don't have to give both a text and an image. If not set, Firefox will show a default empty view. The image is displayed in a 90dp square (that's 90px on mdpi devices, 180px on xhdpi devices).
 
 ## What's not quite possible yet
- - Requesting a sync or sync interval, where Firefox calls you, whenever it thinks it's apropriate to sync.
  - Authentification

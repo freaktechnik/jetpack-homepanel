@@ -38,6 +38,8 @@ Boolean indicating, if a user can pull down to refresh the content of the panel.
 Defaults to true.
 ###### onRefresh
 Event listener attached to the refresh event.
+###### refreshInterval
+Amount in seconds for a refresh interval. See the `refreshInterval` property description.
 #### Properties
 ##### id
 (readonly) ID of the section in the HomeStorage.
@@ -45,6 +47,12 @@ Event listener attached to the refresh event.
 The (readonly) type of the section.
 ##### data
 Array of items within the section.
+##### refreshInterval
+Amount in seconds for a refresh interval. Whenever the interval is due, the
+refresh event is dispatched with its first argument set to ture. This should
+be bigger than 3600. To remove the interval, set the property to `null`. Firefox
+decides, when it is apropriate to refresh data. It takes into account things
+like connectivity and status of the Firefox app.
 #### Methods
 ##### addData(newData)
 This is a more efficient way of adding items to the section than setting the data
@@ -53,15 +61,21 @@ attribute with a concatenated array.
 Does the same as setting the data attribute but returns a promise that resolves
 whenever the data is acutally replaced.
 ##### clear()
-Removes all items from the section
+Removes all items from the section.
+##### requestSync()
+Returns a promise, when Firefox thinks it's apropriate to sync data with the
+internet. This takes into account things like device connectivity and app status.
 ##### destroy()
 Cleans the object's private attributes and clears its items.
 ##### Event listening methods (on, once etc.)
 #### Events
 ##### refresh
-The refresh event can only get fired if manuallyRefreshable was true in the
+The refresh event can get fired if `manuallyRefreshable` was true in the
 constructor. It is triggered after the user pulled down to refresh. The loading
 animation will only stop, if the data property is set or addData is called.
+
+The other case, is if the `refreshInterval` is set. The event then passes `true`
+as the first argument to the listener.
 ### HomePanel
 #### Constructor
 Adds a panel to fennec's homescreen.
