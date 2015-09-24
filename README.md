@@ -12,6 +12,8 @@ To run the tests, you have to install the jpm-mobile module and then just execut
 
 ## Usage
 Using this module is as simple as running `npm install jetpack-homepanel --save` and npm will do the rest for you.
+
+Consider the [walkthrough](docs/walkthrough.md) for a guide on how to use this module and return here for more examples and documentation.
 ### Section
 Represents a list or grid of items in a panel on the homescreen. Fennec
 currently only supports one per panel.
