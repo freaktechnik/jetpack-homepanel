@@ -31,6 +31,8 @@ Object with a text and imageUrl property, specifying the contents of the panel
 when there are no items to display.
 ###### data
 List of items added to the section upon construction.
+###### itemType
+Mainly used for speed dials, with the value of `ItemTypes.ICON`.
 ###### manuallyRefreshable
 Boolean indicating, if a user can pull down to refresh the content of the panel.
 Defaults to true.
