@@ -58,7 +58,7 @@ like connectivity and status of the Firefox app.
 #### Methods
 ##### addData(newData)
 This is a more efficient way of adding items to the section than setting the data
-attribute with a concatenated array.
+attribute with a concatenated array. Returns a promise that resolves with the new data.
 ##### setData(newData)
 Does the same as setting the data attribute but returns a promise that resolves
 whenever the data is acutally replaced.
