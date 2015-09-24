@@ -22,7 +22,7 @@ exports["test exported symbols"] = function(assert) {
 };
 
 exports["test section construction"] = function(assert) {
-    var section = Section({
+    var section = new Section({
         type: Types.LIST
     });
     assert.ok(section instanceof Section);
@@ -35,7 +35,7 @@ exports["test section construction"] = function(assert) {
 };
 
 exports["test section id"] = function(assert) {
-    var section = Section({
+    var section = new Section({
         type: Types.LIST
     });
     assert.equal(section.id, identify(section), "Section's id matches its identification");
@@ -49,7 +49,7 @@ exports["test getting data"] = function*(assert) {
                 title: "exmple item"
             }
         ],
-        section = Section({
+        section = new Section({
             type: Types.LIST,
             data: data
         });
@@ -59,7 +59,7 @@ exports["test getting data"] = function*(assert) {
 };
 
 exports["test setting data"] = function*(assert) {
-    var section = Section({
+    var section = new Section({
         type: Types.LIST,
         data: [
             {
@@ -90,7 +90,7 @@ exports["test setting data"] = function*(assert) {
 };
 
 exports["test setting data with method"] = function*(assert) {
-    var section = Section({
+    var section = new Section({
         type: Types.LIST,
         data: [
             {
@@ -116,7 +116,7 @@ exports["test setting data with method"] = function*(assert) {
 };
 
 exports["test adding data"] = function*(assert) {
-    var section = Section({
+    var section = new Section({
         type: Types.GRID
     }),
     nd = [
@@ -133,7 +133,7 @@ exports["test adding data"] = function*(assert) {
 };
 
 exports["test clearing data"] = function*(assert) {
-    var section = Section({
+    var section = new Section({
         type: Types.GRID,
         data: [ { title: "example", url: "http://example.com" } ]
     });
@@ -146,7 +146,7 @@ exports["test clearing data"] = function*(assert) {
 };
 
 exports["test view description construction"] = function(assert) {
-    var section = Section({
+    var section = new Section({
             type: Types.LIST,
             backImageUrl: "http://example.com/blank.png"
         }),
