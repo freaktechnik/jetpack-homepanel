@@ -1,4 +1,6 @@
 # jetpack-homepanel
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/freaktechnik/jetpack-homepanel.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/freaktechnik/jetpack-homepanel.svg?branch=master)](https://travis-ci.org/freaktechnik/jetpack-homepanel)
 
 Module to add home panels to Firefox for Android with Jetpack.
